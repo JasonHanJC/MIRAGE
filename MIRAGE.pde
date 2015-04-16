@@ -27,6 +27,22 @@ int gameState;
 int savedTime;
 boolean dimension;
 
+/*define the special position*/
+FloatList leftRed;
+FloatList rightRed;
+FloatList yellow_1;
+FloatList yellow_2;
+FloatList yellow_3;
+FloatList door_0;
+FloatList door_1;
+FloatList redFinal;
+FloatList stair_0;
+FloatList stair_1;
+FloatList stair_2;
+FloatList stair_3;
+FloatList specialPTemp;
+
+
 //about player
 player playerA;
 player playerB;
@@ -179,6 +195,21 @@ void setup() {
   stairPassed = new IntList();
   stairPassed.append(99);
   stairPassed.append(99);
+
+  specialPTemp = new FloatList();
+  leftRed = new FloatList();
+  rightRed = new FloatList();
+  yellow_1 = new FloatList();
+  yellow_2 = new FloatList();
+  yellow_3 = new FloatList();
+  door_0 = new FloatList();
+  door_1 = new FloatList();
+  redFinal = new FloatList();
+  stair_0 = new FloatList();
+  stair_1 = new FloatList();
+  stair_2 = new FloatList();
+  stair_3 = new FloatList();
+  initialPosition();
 }
 
 void movieEvent(Movie m) {
