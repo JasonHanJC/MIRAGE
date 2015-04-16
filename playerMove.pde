@@ -188,7 +188,7 @@ public void playerMove(player p) {
       text("BLUE", width/2 - 43, height/2 - 40);
     }
     if (win.duration() == win.time()) {
-      stop1.stop();
+      win.stop();
       gameState = 3;
     }
   }
