@@ -170,10 +170,10 @@ void setup() {
   door1 = new door(1, door1V, new PVector(338, 178));
 
   /*initial stairs info*/
-  stair0 = new stair(0, 1);
-  stair1 = new stair(1, 0);
-  stair2 = new stair(2, 3);
-  stair3 = new stair(3, 2);
+  stair0 = new stair(0, 1, new PVector(262, 347));
+  stair1 = new stair(1, 0, new PVector(176, 323));
+  stair2 = new stair(2, 3, new PVector(647, 266));
+  stair3 = new stair(3, 2, new PVector(581, 167));
   stairPassed = new IntList();
   stairPassed.append(99);
   stairPassed.append(99);
