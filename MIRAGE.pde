@@ -13,12 +13,15 @@ Movie toWin;
 Gif keyDice;
 Gif dice1g;
 int EnterCount;
+PFont oswald;
 
 //PImage map2d;
 PImage map3d;
 PImage choosed;
 PImage piece1;
 PImage piece2;
+PImage turnR;
+PImage turnB;
 int gameState;
 int savedTime;
 boolean dimension;
@@ -82,7 +85,7 @@ Movie dice3;
 Movie dice4;
 Movie dice5;
 Movie dice6;
-
+int currentDice;
 
 void setup() {
   size(800, 800);
@@ -101,6 +104,10 @@ void setup() {
   door3D = new Movie(this, "door3d.mov");
   piece1 = loadImage("player1.png");
   piece2 = loadImage("player2.png");
+  turnR = loadImage("turnR.png");
+  turnB = loadImage("turnB.png");
+  //font
+  oswald = loadFont("Oswald-28.vlw");
   //stop = loadImage("stop.png");
   stop1 = new Movie(this, "staireffect1.mov");
   stop2 = new Movie(this, "staireffect2.mov");
@@ -139,6 +146,7 @@ void setup() {
   doorTime = 0;
   tempDtime = 0;
   whichDice= 7;
+  currentDice = 0;
 
   confirmMove = false;
   winningGame = false;
@@ -210,10 +218,10 @@ void draw() {
       if (playerAChoose == true) {
         textSize(20);
         fill(237, 30, 40);
-        text("Red Player Choose First", 300, 700);
+        text("Red Player Choose Please", 300, 700);
         if (playerADimen != 0) {
           textSize(20);
-          fill(237, 30, 40);
+          fill(255, 0, 0);
           text(playerADimen + "D", width/2, 730);
           if (playerADimen == 2) {
             fill(255, 0, 0, 80);
@@ -318,9 +326,18 @@ void draw() {
           keya.stop();
         } else if (stopKey == false) {
           keya.play();
-          image(keya, width/2, height-60, 130, 130);
+          image(keya, width/2, height-85, 130, 130);
         }
       }
+      textFont(oswald);
+      textSize(30);
+      fill(#C1272D);
+
+      image(turnR, width/2, height/2, width, height);
+      text(playerA.gameDimen +"D", width/2 - 100, 30);
+
+      if (diceThrowed == true)
+        text(currentDice + 1, width/2 + 105, 30);
     }
 
 
@@ -344,9 +361,16 @@ void draw() {
           keyb.stop();
         } else if (stopKey == false) {
           keyb.play();
-          image(keyb, width/2, height-60, 130, 130);
+          image(keyb, width/2, height-85, 130, 130);
         }
       }
+      textSize(30);
+      fill(49, 187, 244);  
+      image(turnB, width/2, height/2, width, height);
+      text(playerB.gameDimen +"D", width/2 - 100, 30);
+      noFill();
+      if (diceThrowed == true)
+        text(currentDice + 1, width/2 + 105, 30);
     }
   }
 
@@ -380,6 +404,8 @@ void draw() {
     playerADimen = 0;
     playerBDimen = 0;
     savedTime = millis();
+    currentDice = 0;
+
 
     gameState = 0;
   }
@@ -422,7 +448,7 @@ void changeTurn() {
 void keyPressed() {
 
   //choose door
-  if (key == 'C'|| key == 'c') {
+  if (gameState == 2 && key == 'C'|| key == 'c') {
     doorChooseNo = (doorChooseNo + 1) % numofDoor;
   }
 
@@ -517,6 +543,10 @@ void keyPressed() {
       playerAChoose = true;
       wrongInput = false;
     }
+  }
+  //throwDice
+  if (gameState == 2 && key == ' ' && diceThrowed == false) {
+    whichDice = int(random(-0.5, 6));
   }
 }
 
