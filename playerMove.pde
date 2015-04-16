@@ -1,6 +1,6 @@
 public void playerMove(player p) {
 
-  println("currentStair = " + currentStair +  " pairedstair = " + pairedStair + "stairPassed: " + stairPassed);
+  //println("currentStair = " + currentStair +  " pairedstair = " + pairedStair + "stairPassed: " + stairPassed);
   if (diceThrowed == true) {
     if (p.name == "A") {
       piece1Move();
@@ -110,7 +110,7 @@ public void playerMove(player p) {
 
       if (pairedStair == stairPassed.get(0)) {
         if (stairPassed.get(1) != stairPassed.get(0)) {
-          println("lam here");
+          //println("lam here");
           if (currentStair == 2 || currentStair == 3) {
             //println("haha");
             stop2.play();
