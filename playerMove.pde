@@ -1,6 +1,6 @@
 public void playerMove(player p) {
 
-  //println("currentStair = " + currentStair +  " pairedstair = " + pairedStair + "stairPassed: " + stairPassed);
+  println("currentStair = " + currentStair +  " pairedstair = " + pairedStair + "stairPassed: " + stairPassed);
   if (diceThrowed == true) {
     if (p.name == "A") {
       piece1Move();
@@ -110,19 +110,64 @@ public void playerMove(player p) {
 
       if (pairedStair == stairPassed.get(0)) {
         if (stairPassed.get(1) != stairPassed.get(0)) {
-          //println("lam here");
+          println("lam here");
           if (currentStair == 2 || currentStair == 3) {
             //println("haha");
             stop2.play();
             image(stop2, width/2, height/2, width, height);
+            if ( stop2.duration() == stop2.time()) {
+              stop2.stop();
+              if (stairPassed.get(1) == 3) {
+                if (playerA.myTurn == true) {
+                  playerA.setLoc(stair2.center);
+                  piece1x = int(stair2.center.x);
+                  piece1y = int(stair2.center.y);
+                } else {
+                  playerB.setLoc(stair2.center);
+                  piece2x = int(stair2.center.x);
+                  piece2y = int(stair2.center.y);
+                }
+              } else {
+                if (playerA.myTurn == true) {
+                  playerA.setLoc(stair3.center);
+                  piece1x = int(stair3.center.x);
+                  piece1y = int(stair3.center.y);
+                } else {
+                  playerB.setLoc(stair3.center);
+                  piece2x = int(stair3.center.x);
+                  piece2y = int(stair3.center.y);
+                }
+              }
+            }
           } else if (currentStair == 0 || currentStair == 1) {
             stop1.play();
             image(stop1, width/2, height/2, width, height);
+            if ( stop1.duration() == stop1.time()) {
+              stop1.stop();
+              if (stairPassed.get(1) == 1) {
+                if (playerA.myTurn == true) {
+                  playerA.setLoc(stair0.center);
+                  piece1x = int(stair0.center.x);
+                  piece1y = int(stair0.center.y);
+                } else {
+                  playerB.setLoc(stair0.center);
+                  piece2x = int(stair0.center.x);
+                  piece2y = int(stair0.center.y);
+                }
+              } else {
+                if (playerA.myTurn == true) {
+                  playerA.setLoc(stair1.center);
+                  piece1x = int(stair1.center.x);
+                  piece1y = int(stair1.center.y);
+                } else {
+                  playerB.setLoc(stair1.center);
+                  piece2x = int(stair1.center.x);
+                  piece2y = int(stair1.center.y);
+                }
+              }
+            }
           }
         }
-      } else {
-        stop2.stop();
-        stop1.stop();
       }
     }
   }
