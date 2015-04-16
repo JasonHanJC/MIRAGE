@@ -1,0 +1,149 @@
+public void playerMove(player p) {
+
+  //println("currentStair = " + currentStair +  " pairedstair = " + pairedStair + "stairPassed: " + stairPassed);
+  if (diceThrowed == true) {
+    if (p.name == "A") {
+      piece1Move();
+    } else {
+      piece2Move();
+    }
+  }
+  boolean tempAtYellow = p.isAtYellow();
+  boolean tempAtDoor = p.isAtDoor();
+  boolean tempAtStair = p.isAtStair();
+
+  checkLoc(p);
+
+  //println(p.isAtDoor());
+  if (p.getDimen() == 2) {                          //2dview
+    map2d.play();
+    image(map2d, width/2, height/2, width, height);
+  }
+  if (p.getDimen() == 3) {                          //3dview
+    //map3d.play();
+    image(map3d, width/2, height/2, width, height);
+  }
+
+  /***************************at yellow***************************/
+  if (p.isAtYellow() == true) {
+    //p.setAtYellow(true);
+    if (tempAtYellow != p.isAtYellow())
+      yellowTime++;
+    //println("yellowTime = " + yellowTime);
+    if (p.getDimen() == 2 && tempYtime != yellowTime && confirmMove == true) {      //2d
+      c2to3.play();
+      image(c2to3, width/2, height/2, width, height);
+      if (c2to3.duration() == c2to3.time()) {
+        c2to3.stop();
+        p.setDimen(3);
+        tempYtime = yellowTime;
+        confirmMove = false;
+        p.setMyTurn(false);
+        if (p.name == "A") {
+          playerB.setMyTurn(true);
+          diceThrowed = false;
+        } else {
+          playerA.setMyTurn(true);
+          diceThrowed = false;
+        }
+      }
+    }
+    //println(tempYtime);
+    if (p.getDimen() == 3 && tempYtime != yellowTime && confirmMove == true) {
+      //println("yellowTime == " + yellowTime);
+      c3to2.play();
+      image(c3to2, width/2, height/2, width, height);
+      if (c3to2.duration() == c3to2.time()) {
+        c3to2.stop();
+        p.setDimen(2);
+        tempYtime = yellowTime;
+        confirmMove = false;
+        p.setMyTurn(false);
+        if (p.name == "A") {
+          playerB.setMyTurn(true);
+          diceThrowed = false;
+        } else {
+          playerA.setMyTurn(true);
+          diceThrowed = false;
+        }
+      }
+    }
+  } 
+
+  /***************************at door***************************/
+  if (p.isAtDoor() == true) {
+    chooseDoor(p);
+
+    if (tempAtDoor != p.isAtDoor())
+      doorTime++;
+
+    if (p.getDimen() == 2 && tempDtime != doorTime) { 
+      door2D.play();
+      image(door2D, width/2, height/2, width, height);
+      if (door2D.duration() == door2D.time()) {
+        door2D.stop();
+        tempDtime = doorTime;
+      }
+    }
+
+    if (p.getDimen() == 3 && tempDtime != doorTime) { 
+      door3D.play();
+      image(door3D, width/2, height/2, width, height);
+      if (door3D.duration() == door3D.time()) {
+        door3D.stop();
+        tempDtime = doorTime;
+      }
+    }
+  }
+
+  /***************************at stair***************************/
+  tempStair = p.stairNo;
+  if (p.isAtStair() == true) {
+    if (tempAtStair != p.isAtStair())
+      stairTime++;
+    currentStair = p.stairNo;
+
+    if (stairPassed.get(1) != stairPassed.get(0)) {
+      stairChanged = true;
+    }
+    if (p.getDimen() == 2 && stairChanged == true) { 
+
+      if (pairedStair == stairPassed.get(0)) {
+        if (stairPassed.get(1) != stairPassed.get(0)) {
+          //println("lam here");
+          if (currentStair == 2 || currentStair == 3) {
+            //println("haha");
+            stop2.play();
+            image(stop2, width/2, height/2, width, height);
+          } else if (currentStair == 0 || currentStair == 1) {
+            stop1.play();
+            image(stop1, width/2, height/2, width, height);
+          }
+        }
+      } else {
+        stop2.stop();
+        stop1.stop();
+      }
+    }
+  }
+
+  /***************************at final***************************/
+  if (p.isAtFinal() == true && winningGame == true) {
+    stop1.play();
+    image(stop1, width/2, height/2, width, height);
+    if (p.name == "A") {
+      textSize(50);
+      fill(49, 187, 244);
+      text("Red WIN!", 50, 50);
+    } else {
+      textSize(50);
+      fill(49, 187, 244);
+      text("Blue WIN!", 50, 50);
+    }
+    if (stop1.duration() == stop1.time()) {
+      stop1.stop();
+      gameState = 3;
+    }
+  }
+}
+
