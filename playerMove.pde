@@ -174,18 +174,20 @@ public void playerMove(player p) {
 
   /***************************at final***************************/
   if (p.isAtFinal() == true && winningGame == true) {
-    stop1.play();
-    image(stop1, width/2, height/2, width, height);
+    win.play();
+    image(win, width/2, height/2, width, height);
     if (p.name == "A") {
-      textSize(50);
-      fill(49, 187, 244);
-      text("Red WIN!", 50, 50);
+      textFont(oswald);
+      textSize(75);
+      fill(255);
+      text("RED", width/2 - 43, height/2 - 40);
     } else {
-      textSize(50);
-      fill(49, 187, 244);
-      text("Blue WIN!", 50, 50);
+      textFont(oswald);
+      textSize(75);
+      fill(255);
+      text("BLUE", width/2 - 43, height/2 - 40);
     }
-    if (stop1.duration() == stop1.time()) {
+    if (win.duration() == win.time()) {
       stop1.stop();
       gameState = 3;
     }
