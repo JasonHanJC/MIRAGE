@@ -7,6 +7,7 @@ Movie door2D;
 Movie door3D;
 Movie map2d;
 Movie intro1;
+Movie win;
 
 // rules
 Movie toWin;
@@ -102,6 +103,7 @@ void setup() {
   c3to2 = new Movie(this, "3to2.mov");
   door2D = new Movie(this, "door.mov");
   door3D = new Movie(this, "door3d.mov");
+  win = new Movie(this, "win.mov");
   piece1 = loadImage("player1.png");
   piece2 = loadImage("player2.png");
   turnR = loadImage("turnR.png");
@@ -374,7 +376,7 @@ void draw() {
     }
   }
 
-  /******************  State 3 Game Stop & Start Again  ********************/
+  /******************  State 3 Game Start Again  ********************/
   if (gameState == 3) {
     //initial
     piece1x = 657;
@@ -533,7 +535,7 @@ void keyPressed() {
   if (gameState == 1 && keyCode == ENTER) {
     if (playerADimen != 0 && playerBDimen != 0)
       EnterCount = 2;
-    println("EnterCount " + EnterCount);
+    //println("EnterCount " + EnterCount);
     if (playerAChoose == true) {
       playerAChoose = false;
       playerBChoose = true;
